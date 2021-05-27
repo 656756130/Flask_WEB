@@ -1,0 +1,55 @@
+{% extends "main_layout.html" %}
+{% block content %}
+    <div class="content-section">
+    	<form method="POST" action="" novalidate>
+    		{{ form.hidden_tag() }}<!-- 预防CSRF -->
+    		<fieldset class="form-group">
+    			<legend class="border-bottom mk-4">{{ legend }}</legend>
+
+    			<div class="form-group">
+    				{{ form.title.label(class="form-control-label") }}
+
+    				{% if form.title.errors %}
+    					{{ form.title(class="form-control form-control-lg is-invalid")}}
+    					<div class="invalid-feedback">
+    						{% for error in form.title.errors %}
+    							<span>{{ error }}</span>
+    						{% endfor %}
+    					</div>
+
+    				{% else %}	
+    					{{ form.title(class="form-control form-control-lg")}}
+
+
+    				{% endif %}
+ 
+    			</div>
+
+    			<div class="form-group">
+    				{{ form.thing.label(class="form-control-label") }}
+
+    				{% if form.thing.errors %}
+    					{{ form.thing(class="form-control form-control-lg is-invalid")}}
+    					<div class="invalid-feedback">
+    						{% for error in form.thing.errors %}
+    							<span>{{ error }}</span>
+    						{% endfor %}
+    					</div>
+
+    				{% else %}	
+    					{{ form.thing(class="form-control form-control-lg")}}
+
+
+    				{% endif %}
+ 
+    			</div>
+
+    		</fieldset>
+    		<div class="form-group">
+    			{{form.submit(class="btn btn-outline-info")}}
+    		</div>
+
+
+    	</form> 
+    </div>
+{% endblock content %}

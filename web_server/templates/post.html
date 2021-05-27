@@ -1,0 +1,42 @@
+{% extends "main_layout.html" %}
+{% block content %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ url_for('static',filename='user_profile_pic/'+post.author.image_file) }}">
+  		<div class="media-body">
+    			<div class="article-metadata">
+      			<a class="mr-2" href="{{ url_for('user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
+      			<small class="text-muted">{{ post.time.strftime('%Y-%m-%d') }}</small>
+            {% if post.author == current_user %}
+              <div>
+                <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post',post_id=post.id) }}">点我更新</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">点我删除</button>
+              </div>
+            {% endif %}
+    		</div>
+    		<h2 class="article-title">{{ post.title }}</h2>
+    		<p class="article-content">{{ post.thing }}</p>
+  	</div>
+</article>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">删除文章？</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        你确定删除这篇文章么？（删除操作不可逆）
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">我再想想</button>
+
+        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+          <input class="btn btn-danger" type="submit" value="点我删除">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

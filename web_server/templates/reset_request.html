@@ -1,0 +1,46 @@
+{% extends "main_layout.html" %}
+{% block content %}
+    <div class="content-section">
+    	<form method="POST" action="">
+    		{{ form.hidden_tag() }}<!-- 预防CSRF -->
+    		<fieldset class="form-group">
+    			<legend class="border-bottom mk-4">密码找回</legend>
+
+    			<div class="form-group">
+    				{{ form.email.label(class="form-control-label") }}
+
+    				{% if form.email.errors %}
+    					{{ form.email(class="form-control form-control-lg is-invalid")}}
+    					<div class="invalid-feedback">
+    						{% for error in form.email.errors %}
+    							<span>{{ error }}</span>
+    						{% endfor %}
+    					</div>
+
+    				{% else %}	
+    					{{ form.email(class="form-control form-control-lg")}}
+
+
+    				{% endif %}
+ 
+    			</div>
+
+
+    		</fieldset>
+    		<div class="form-group">
+    			{{form.submit(class="btn btn-outline-info")}}
+    		</div>
+
+
+    	</form> 
+    </div>
+
+    <div class="border-top pt-3">
+    	<small class="text-muted">
+    		还没注册账户？<a class="ml-2" href="{{ url_for('register')}}">点击注册，一起探索计算机的魅力</a>
+    	</small>
+    	
+
+
+    </div>
+{% endblock content %}
